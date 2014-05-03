@@ -3,7 +3,7 @@ package tdc2014.demo.timesheet;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Atividade {
+public final class Atividade {
 
     public enum Tipo {
 

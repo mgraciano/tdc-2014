@@ -4,14 +4,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import tdc2014.demo.timesheet.Atividade.Tipo;
 
-public class AtividadeSumarizada {
+public final class AtividadeSumarizada {
 
     private final Tipo tipo;
     private final LocalDateTime horarioInicio;
     private final LocalDateTime horarioTermino;
     private final Duration duracao;
 
-    public AtividadeSumarizada(final Tipo tipo, final LocalDateTime horarioInicio, final LocalDateTime horarioTermino,
+    AtividadeSumarizada(final Tipo tipo, final LocalDateTime horarioInicio, final LocalDateTime horarioTermino,
             final Duration duracao) {
         this.tipo = tipo;
         this.horarioInicio = horarioInicio;
