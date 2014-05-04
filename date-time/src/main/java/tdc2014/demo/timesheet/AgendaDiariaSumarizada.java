@@ -22,9 +22,8 @@ public final class AgendaDiariaSumarizada {
                     final Duration duracaoAtividadesIntercaladas = agendaDiaria.stream()
                     .filter(intercalada -> intercalada.getHorarioInicio().isAfter(atividade.getHorarioInicio())
                             && intercalada.getHorarioInicio().isBefore(atividade.getHorarioTermino()))
-                    .reduce(Duration.ZERO,
-                            (duracao, intercalada) -> duracao.plus(intercalada.getDuracaoBruta()),
-                            (left, right) -> left.plus(right));
+                    .map(Atividade::getDuracaoBruta)
+                    .reduce(Duration.ZERO, Duration::plus);
                     return new AtividadeSumarizada(atividade.getTipo(), atividade.getHorarioInicio(),
                             atividade.getHorarioTermino(), atividade.getDuracaoBruta().minus(
                                     duracaoAtividadesIntercaladas));
