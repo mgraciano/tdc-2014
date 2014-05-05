@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tdc2014.atividades;
 
 import java.time.Duration;
@@ -10,23 +5,55 @@ import java.time.LocalDateTime;
 
 public class Atividade {
 
-    public enum Tipo {
-
-        DESENVOLVIMENTO, INTERVALO, TELEFONE, REUNIAO
-    };
     private Tipo tipo;
-    private Duration duracao;
+    private Duration duracaoIterruptor = Duration.ZERO;
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
+    private ContabilizadorInterrupcao contabilizadorInterrupcao;
 
     public Atividade(Tipo tipo, LocalDateTime inicio, LocalDateTime fim) {
         this.tipo = tipo;
-        this.duracao = Duration.between(inicio, fim);
+        this.inicio = inicio;
+        this.fim = fim;
+        this.contabilizadorInterrupcao = new ContabilizadorInterrupcao(this);
     }
 
     public Duration getDuracao() {
-        return duracao;
+        Duration duracaoIterrupcoes = contabilizadorInterrupcao.getDuracao();
+        return Duration.between(inicio, fim).minus(duracaoIterrupcoes);
+    }
+
+    void interrompe(Atividade novaAtividade) {
+        contabilizadorInterrupcao.adiciona(novaAtividade);
     }
 
     public Tipo getTipo() {
         return tipo;
     }
+
+    public LocalDateTime getInicio() {
+        return inicio;
+    }
+
+    public LocalDateTime getFim() {
+        return fim;
+    }
+    
+    void registraDuracaoIterruptor(Duration duration) {
+        this.duracaoIterruptor = duracaoIterruptor.plus(duration);
+    }
+
+    public Duration getDuracaoIterruptor() {
+        return duracaoIterruptor;
+    }
+    
+    Duration getSaldoIterruptor() {
+        return getDuracao().minus(duracaoIterruptor);
+    }
+
+    @Override
+    public String toString() {
+        return "Atividade{" + "tipo=" + tipo + ", duracaoIterruptor=" + duracaoIterruptor + ", inicio=" + inicio + ", fim=" + fim + ", contabilizadorInterrupcao=" + contabilizadorInterrupcao + '}';
+    }
+    
 }
