@@ -33,7 +33,7 @@ public final class Atividade {
         return horarioTermino;
     }
 
-    public Duration getDuracaoBruta() {
+    public Duration getDuracao() {
         return Duration.between(horarioInicio, horarioTermino);
     }
 
