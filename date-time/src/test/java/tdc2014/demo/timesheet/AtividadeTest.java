@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class AtividadeTest {
 
     @DataProvider
-    Object[][] testGetDuracaoBruta() {
+    Object[][] testGetDuracao() {
         final LocalDate dataBase = LocalDate.of(2014, Month.APRIL, 20);
 
         return new Object[][] {
@@ -25,7 +25,7 @@ public class AtividadeTest {
 
     @Test(dataProvider = "testGetDuracaoBruta")
     public void testGetDuracaoBruta(final Atividade atividade, final Duration expected) {
-        assertEquals(atividade.getDuracaoBruta(), expected);
+        assertEquals(atividade.getDuracao(), expected);
     }
 
 }
