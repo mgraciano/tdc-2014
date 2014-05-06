@@ -23,8 +23,8 @@ public class AtividadeTest {
         };
     }
 
-    @Test(dataProvider = "testGetDuracaoBruta")
-    public void testGetDuracaoBruta(final Atividade atividade, final Duration expected) {
+    @Test(dataProvider = "testGetDuracao")
+    public void testGetDuracao(final Atividade atividade, final Duration expected) {
         assertEquals(atividade.getDuracao(), expected);
     }
 
