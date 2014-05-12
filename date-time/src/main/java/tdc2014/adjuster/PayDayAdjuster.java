@@ -11,7 +11,7 @@ public class PayDayAdjuster implements TemporalAdjuster{
     public Temporal adjustInto(Temporal temporal) {
         LocalDate date = LocalDate.from(temporal);        
         LocalDate firtsDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate payDay = firtsDayOfMonth.with(new PlusUtilDaysAdjuster(4));
+        LocalDate payDay = firtsDayOfMonth.with(new UtilDaysAdjuster(5));
 
         if(date.isAfter(payDay)){
             return date.with(TemporalAdjusters.firstDayOfNextMonth()).with(this);

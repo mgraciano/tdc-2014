@@ -4,24 +4,26 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 
-public class PlusUtilDaysAdjuster implements TemporalAdjuster {
+public class UtilDaysAdjuster implements TemporalAdjuster {
 
-    private long days;
+    private long daysToAdjust;
+    
+    private Holidays holidays;
 
-    public PlusUtilDaysAdjuster() {
-        this(0);
+    public UtilDaysAdjuster() {
+        this(1);
     }
-
-    public PlusUtilDaysAdjuster(long days) {
-        this.days = days;
+    
+    public UtilDaysAdjuster(long daysToAdjust) {
+        this.daysToAdjust = daysToAdjust;
+        this.holidays = new Holidays();
     }
 
     @Override
     public Temporal adjustInto(Temporal temporal) {
         LocalDate date = nextOrSameUtilDay(LocalDate.from(temporal));
-        for (int day = 1; day <= days; day++) {
+        for (int i = 0; i < daysToAdjust - 1; i++) {
             date = nextOrSameUtilDay(date.plusDays(1));
         }
         return date;
@@ -29,10 +31,11 @@ public class PlusUtilDaysAdjuster implements TemporalAdjuster {
 
     private LocalDate nextOrSameUtilDay(LocalDate date) {
         if (date.getDayOfWeek() == DayOfWeek.SATURDAY
-                || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            date = date.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                || date.getDayOfWeek() == DayOfWeek.SUNDAY
+                || holidays.isHoliday(date)) {
+            date = nextOrSameUtilDay(date.plusDays(1));
         }
         return date;
     }
-
+    
 }
