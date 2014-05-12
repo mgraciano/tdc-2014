@@ -51,7 +51,7 @@ class ContabilizadorInterrupcao {
     public Duration getDuracao() {
         return interrupcoes.values()
                 .stream()
-                .reduce(Duration.ZERO, (d1, d2) -> d1.plus(d2));
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
     @Override

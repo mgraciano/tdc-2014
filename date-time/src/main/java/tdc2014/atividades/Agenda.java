@@ -4,8 +4,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,13 +56,13 @@ public class Agenda {
         return atividades
                 .stream()
                 .map(Atividade::getDuracao)
-                .reduce(Duration.ZERO, (d1, d2) -> d1.plus(d2));
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
     private void registraInterrupcao(Atividade novaAtividade) {
         atividades
                 .stream()
-                .sorted((Atividade t, Atividade t1) -> Integer.compare(t1.getInicio().compareTo(t.getInicio()), t1.getFim().compareTo(t.getFim())) )
+                .sorted((Atividade t, Atividade t1) -> Integer.compare(t1.getInicio().compareTo(t.getInicio()), t1.getFim().compareTo(t.getFim())))
                 .forEach((Atividade atividade) -> {
                     if (!novaAtividade.getSaldoIterruptor().isZero()) {
                         atividade.interrompe(novaAtividade);
@@ -85,10 +83,10 @@ public class Agenda {
     }
 
     public Duration getDuracaoAtividades(Tipo tipo) {
-        return getAtividades()
-                .stream().filter((Atividade t) -> {
-                    return t.getTipo() == tipo;
-                }).map(Atividade::getDuracao).reduce(Duration.ZERO, (d1, d2) -> d1.plus(d2));
+        return getAtividades().stream()
+                .filter(t -> t.getTipo() == tipo)
+                .map(Atividade::getDuracao)
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
 //    public static void main(String[] args) {
@@ -110,5 +108,4 @@ public class Agenda {
 //        System.out.println(agenda3.getDuracaoAtividadesPorTipo());
 //        
 //    }
-    
 }
