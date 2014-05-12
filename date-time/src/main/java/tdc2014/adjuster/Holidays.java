@@ -3,10 +3,12 @@ package tdc2014.adjuster;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalQuery;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Holidays {
+public class Holidays implements TemporalQuery<Boolean>{
 
     private Set<LocalDate> holidays;
 
@@ -42,5 +44,10 @@ public class Holidays {
         holidays.add(year.atMonth(Month.DECEMBER).atDay(25));
 
         return holidays;
+    }
+
+    @Override
+    public Boolean queryFrom(TemporalAccessor temporalAccessor) {
+        return isHoliday(LocalDate.from(temporalAccessor));
     }
 }

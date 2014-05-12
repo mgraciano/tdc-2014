@@ -32,7 +32,7 @@ public class UtilDaysAdjuster implements TemporalAdjuster {
     private LocalDate nextOrSameUtilDay(LocalDate date) {
         if (date.getDayOfWeek() == DayOfWeek.SATURDAY
                 || date.getDayOfWeek() == DayOfWeek.SUNDAY
-                || holidays.isHoliday(date)) {
+                || date.query(holidays)) {
             date = nextOrSameUtilDay(date.plusDays(1));
         }
         return date;
