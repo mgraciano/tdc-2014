@@ -1,4 +1,6 @@
-package tdc2014.adjuster;
+package tdc2014.temporal;
+
+import tdc2014.temporal.UtilDaysAdjuster;
 
 import static org.testng.Assert.assertEquals;
 
