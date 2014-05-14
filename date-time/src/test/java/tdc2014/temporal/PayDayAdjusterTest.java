@@ -1,6 +1,5 @@
 package tdc2014.temporal;
 
-import tdc2014.temporal.PayDayAdjuster;
 
 import static org.testng.Assert.assertEquals;
 
@@ -14,7 +13,8 @@ public class PayDayAdjusterTest {
 @DataProvider
     Object[][] tests() {
         Year year2014 = Year.of(2014);
-        PayDayAdjuster payDayAdjuster = new PayDayAdjuster();
+        Holidays holidays = HolidaysFactory.create();
+        PayDayAdjuster payDayAdjuster = new PayDayAdjuster(holidays);
         return new Object[][] {
             { year2014.atMonth(Month.MAY).atDay(2).with(payDayAdjuster), year2014.atMonth(Month.MAY).atDay(8) },
             { year2014.atMonth(Month.MAY).atDay(10).with(payDayAdjuster), year2014.atMonth(Month.JUNE).atDay(6) },

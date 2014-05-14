@@ -1,23 +1,22 @@
 package tdc2014.temporal;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 
-public class UtilDaysAdjuster implements TemporalAdjuster {
+public class WorkinglDaysAdjuster implements TemporalAdjuster {
 
     private long daysToAdjust;
     
-    private Holidays holidays;
+    private WorkingDay utilDayQuery;
 
-    public UtilDaysAdjuster() {
-        this(1);
+    public WorkinglDaysAdjuster(Holidays holidays) {
+        this(1, holidays);
     }
     
-    public UtilDaysAdjuster(long daysToAdjust) {
+    public WorkinglDaysAdjuster(long daysToAdjust, Holidays holidays) {
         this.daysToAdjust = daysToAdjust;
-        this.holidays = new Holidays();
+        this.utilDayQuery = new WorkingDay(holidays);
     }
 
     @Override
@@ -30,9 +29,7 @@ public class UtilDaysAdjuster implements TemporalAdjuster {
     }
 
     private LocalDate nextOrSameUtilDay(LocalDate date) {
-        if (date.getDayOfWeek() == DayOfWeek.SATURDAY
-                || date.getDayOfWeek() == DayOfWeek.SUNDAY
-                || date.query(holidays)) {
+        if (!date.query(utilDayQuery)) {
             date = nextOrSameUtilDay(date.plusDays(1));
         }
         return date;

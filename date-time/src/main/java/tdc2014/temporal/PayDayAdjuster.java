@@ -7,11 +7,17 @@ import java.time.temporal.TemporalAdjusters;
 
 public class PayDayAdjuster implements TemporalAdjuster{
 
+    private WorkinglDaysAdjuster fifthWorkingDayAdjuster;
+
+    public PayDayAdjuster(Holidays holidays) {
+        this.fifthWorkingDayAdjuster = new WorkinglDaysAdjuster(5, holidays);
+    }
+    
     @Override
     public Temporal adjustInto(Temporal temporal) {
         LocalDate date = LocalDate.from(temporal);        
         LocalDate firtsDayOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate payDay = firtsDayOfMonth.with(new UtilDaysAdjuster(5));
+        LocalDate payDay = firtsDayOfMonth.with(fifthWorkingDayAdjuster);
 
         if(date.isAfter(payDay)){
             return date.with(TemporalAdjusters.firstDayOfNextMonth()).with(this);
