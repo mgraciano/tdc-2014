@@ -6,9 +6,9 @@ import java.time.Year;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HolidaysFactory {
+public class FeriadosFactory {
 
-    public static Holidays create() {
+    public static FeriadosQuery create() {
         Year year = Year.of(2014);
         Set<LocalDate> holidays = new HashSet<>();
 
@@ -26,6 +26,6 @@ public class HolidaysFactory {
         holidays.add(year.atMonth(Month.NOVEMBER).atDay(15));
         holidays.add(year.atMonth(Month.DECEMBER).atDay(25));
 
-        return new Holidays(holidays);
+        return new FeriadosQuery(holidays);
     }
 }

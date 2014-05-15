@@ -1,6 +1,7 @@
 package tdc2014.temporal;
 
 
+
 import static org.testng.Assert.assertEquals;
 
 import java.time.Month;
@@ -8,14 +9,14 @@ import java.time.Year;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class WorkingDaysYearMonthCounterTest {
+public class DiasUteisPorMesAnoCounterTest {
 
     @DataProvider
     Object[][] tests() {
         Year year2014 = Year.of(2014);
-        Holidays holidays = HolidaysFactory.create();
+        FeriadosQuery holidays = FeriadosFactory.create();
         
-        WorkingDaysYearMonthCounter countQuery = new WorkingDaysYearMonthCounter(holidays);
+        DiasUteisPorMesAnoCounter countQuery = new DiasUteisPorMesAnoCounter(holidays);
         
         return new Object[][] {
             { year2014.atMonth(Month.MAY).query(countQuery), 21 },
