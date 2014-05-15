@@ -1,8 +1,5 @@
 package tdc2014.demo.diversos;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
@@ -10,11 +7,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
 public class TestExemplos2 {
 
     private Exemplos2 exemplos2;
 
-    @Before
+    @BeforeTest
     public void before() {
         this.exemplos2 = new Exemplos2();
     }
