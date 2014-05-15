@@ -9,7 +9,7 @@ public class DiaPagamentoAdjuster implements TemporalAdjuster {
 
     private final DiasUteisAdjuster quintoDiaUtilAdjuster;
 
-    public DiaPagamentoAdjuster(final FeriadosQuery feriados) {
+    public DiaPagamentoAdjuster() {
         this.quintoDiaUtilAdjuster = new DiasUteisAdjuster(5);
     }
 
