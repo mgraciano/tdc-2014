@@ -1,12 +1,12 @@
 package tdc2014.temporal;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQuery;
+import java.util.stream.Stream;
 
-public class DiasUteisPorMesAnoCounter implements TemporalQuery<Integer> {
+public class DiasUteisPorMesAnoCounter implements TemporalQuery<Long> {
 
     private DiaUtilQuery diaUtilQuery;
 
@@ -15,24 +15,17 @@ public class DiasUteisPorMesAnoCounter implements TemporalQuery<Integer> {
     }
 
     @Override
-    public Integer queryFrom(TemporalAccessor temporal) {
+    public Long queryFrom(TemporalAccessor temporal) {
         if (!temporal.isSupported(ChronoField.YEAR) && !temporal.isSupported(ChronoField.MONTH_OF_YEAR)) {
             throw new IllegalArgumentException("Argumento não suportado. Esperava um valor que suporte mês e ano.");
         }
 
-        YearMonth yearMonth = YearMonth.from(temporal);
+        final YearMonth mesAno = YearMonth.from(temporal);
 
-        Integer count = 0;
-        LocalDate firstDayMonth = yearMonth.atDay(1);
-        LocalDate calculatedDate = yearMonth.atEndOfMonth();
-        while (calculatedDate.isAfter(firstDayMonth) || calculatedDate.isEqual(firstDayMonth)) {
-            if (calculatedDate.query(diaUtilQuery)) {
-                count++;
-            }
-            calculatedDate = calculatedDate.minusDays(1);
-        }
-
-        return count;
+        return Stream.iterate(mesAno.atDay(1), day -> day.plusDays(1))
+                .limit(mesAno.lengthOfMonth())
+                .filter(day -> day.query(diaUtilQuery))
+                .count();
     }
 
 }

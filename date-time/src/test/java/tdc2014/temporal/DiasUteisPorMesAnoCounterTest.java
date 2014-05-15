@@ -1,7 +1,5 @@
 package tdc2014.temporal;
 
-
-
 import static org.testng.Assert.assertEquals;
 
 import java.time.Month;
@@ -15,19 +13,19 @@ public class DiasUteisPorMesAnoCounterTest {
     Object[][] tests() {
         Year year2014 = Year.of(2014);
         FeriadosQuery holidays = FeriadosFactory.create();
-        
-        DiasUteisPorMesAnoCounter countQuery = new DiasUteisPorMesAnoCounter(holidays);
-        
+
+        final DiasUteisPorMesAnoCounter diasUteisCounter = new DiasUteisPorMesAnoCounter(holidays);
+
         return new Object[][] {
-            { year2014.atMonth(Month.MAY).query(countQuery), 21 },
-            { year2014.atMonth(Month.APRIL).query(countQuery), 20 },
-            { year2014.atMonth(Month.JANUARY).query(countQuery), 22 }
+            { year2014.atMonth(Month.MAY).query(diasUteisCounter), 21l },
+            { year2014.atMonth(Month.APRIL).query(diasUteisCounter), 20l },
+            { year2014.atMonth(Month.JANUARY).query(diasUteisCounter), 22l }
         };
 
     }
 
     @Test(dataProvider = "tests")
-    public void testDiaUtilCount(Integer diasUteisCalculado, Integer diasUteisEsperado) {
+    public void testDiaUtilCount(Long diasUteisCalculado, Long diasUteisEsperado) {
         assertEquals(diasUteisCalculado, diasUteisEsperado);
     }
 
