@@ -1,7 +1,7 @@
 package tdc2014.demo.diversos;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,11 +10,13 @@ import java.time.Month;
 
 import static org.junit.Assert.assertEquals;
 
+import org.testng.annotations.BeforeTest;
+
 public class TestExemplos1 {
 
     private Exemplos1 exemplos1;
 
-    @Before
+    @BeforeTest
     public void before() {
         exemplos1 = new Exemplos1();
     }
@@ -58,5 +60,10 @@ public class TestExemplos1 {
         assertEquals(9, combinacao.getHour());
         assertEquals(33, combinacao.getMinute());
         assertEquals(0, combinacao.getSecond());
+    }
+
+    @Test
+    public void testDiferencaEntreBrasilUSA() {
+        assertEquals(1, exemplos1.getDiferencaEntreBrasilUSA());
     }
 }

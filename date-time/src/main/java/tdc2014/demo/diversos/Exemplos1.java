@@ -1,5 +1,8 @@
 package tdc2014.demo.diversos;
 
+import static java.time.ZoneId.of;
+import static java.time.ZonedDateTime.now;
+
 import java.time.*;
 
 public class Exemplos1 {
@@ -28,4 +31,11 @@ public class Exemplos1 {
         return LocalDateTime.now().toLocalDate();
     }
 
+    public long getDiferencaEntreBrasilUSA(){
+        ZonedDateTime brasilDateTime = now(of("America/Sao_Paulo"));
+        ZonedDateTime usaDateTime = now(of("America/New_York"));
+        
+        return brasilDateTime.getHour() - usaDateTime.getHour();
+    }
+    
 }
