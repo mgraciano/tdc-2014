@@ -3,6 +3,7 @@ package tdc2014.temporal;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
+import java.util.stream.Stream;
 
 public class DiasUteisAdjuster implements TemporalAdjuster {
 
@@ -21,19 +22,10 @@ public class DiasUteisAdjuster implements TemporalAdjuster {
 
     @Override
     public Temporal adjustInto(final Temporal temporal) {
-        LocalDate date = nextOrSameUtilDay(LocalDate.from(temporal));
-        for (int i = 0; i < diasAjuste - 1; i++) {
-            date = nextOrSameUtilDay(date.plusDays(1));
-        }
-        return date;
+        final LocalDate from = LocalDate.from(temporal);
+        return Stream.iterate(from, day -> day.plusDays(1))
+                .filter(day -> day.query(diaUtilQuery))
+                .skip(diasAjuste - 1)
+                .findFirst().get();
     }
-
-    private LocalDate nextOrSameUtilDay(final LocalDate date) {
-        if (!date.query(diaUtilQuery)) {
-            return nextOrSameUtilDay(date.plusDays(1));
-        }
-
-        return date;
-    }
-
 }
