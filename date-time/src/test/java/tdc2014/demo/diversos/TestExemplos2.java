@@ -20,11 +20,6 @@ public class TestExemplos2 {
     }
 
     @Test
-    public void testAmanha() {
-        assertEquals(LocalDate.now().plusDays(1), exemplos2.getAmanha());
-    }
-
-    @Test
     public void getUltimoDiaDoMes() {
         assertEquals(LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()).getDayOfWeek(), exemplos2.getUltimoDiaDoMes());
     }

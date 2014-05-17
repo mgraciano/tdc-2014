@@ -63,7 +63,8 @@ public class TestExemplos1 {
     }
 
     @Test
-    public void testDiferencaEntreBrasilUSA() {
-        assertEquals(1, exemplos1.getDiferencaEntreBrasilUSA());
+    public void testAmanha() {
+        assertEquals(LocalDate.now().plusDays(1), exemplos1.getAmanha());
     }
+    
 }

@@ -8,10 +8,6 @@ import java.util.stream.Stream;
 
 public class Exemplos2 {
 
-    public LocalDate getAmanha() {
-        return LocalDate.now().plusDays(1);
-    }
-
     public DayOfWeek getUltimoDiaDoMes() {
         return LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()).getDayOfWeek();
     }
