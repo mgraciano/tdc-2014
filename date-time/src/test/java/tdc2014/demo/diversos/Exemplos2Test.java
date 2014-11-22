@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 
-public class TestExemplos2 {
+public class Exemplos2Test {
 
     private Exemplos2 exemplos2;
 
@@ -38,7 +38,7 @@ public class TestExemplos2 {
         LocalDateTime anoNovo = dataAtual.with(TemporalAdjusters.firstDayOfNextYear());
         long totalDiasAteOAnoNovo = Duration.between(dataAtual, anoNovo).toMinutes();
         
-        assertEquals(totalDiasAteOAnoNovo, exemplos2.getTotalDiasAteOAnoNovo());
+        assertEquals(totalDiasAteOAnoNovo, exemplos2.getTotalMesesAteONatal());
     }
 
     @Test
